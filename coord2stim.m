@@ -57,7 +57,7 @@ stim  = stim(x2use, y2use, :);
 % zero-padding for convolution, avoid edge artefacts in spatial dimension
 % full convolution = [ma + mb - 1]
 % assert 'same' == 'valid', see applyfilters c
-stimpad    = roundn(2*floor(floor((2) * display.ppd) / 2) + 1, 2);
+stimpad    = round(2*floor(floor((2) * display.ppd) / 2) + 1, -2);
 stim       = padarray(stim, [stimpad stimpad], 0, 'both');
 
 end
