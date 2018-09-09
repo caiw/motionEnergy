@@ -101,6 +101,6 @@ subplot(3,3,3);
 scatter(sigmas, x(idx), 40, 'filled');
 p = polyfit(x(idx), sigmas, 1);
 bestSigma = polyval(p, 3.8);
-xlabel('Generated dot speed');
-ylabel('Optimal sigma');
+xlabel('Optimal sigma');
+ylabel('Generated dot speed');
 lsline;
