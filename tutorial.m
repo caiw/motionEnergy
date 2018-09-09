@@ -107,7 +107,7 @@ for theta = 1:length(thetas),
     % FILTER TO OBTAIN MOTION ENERGY
     % ======================================================= %
     
-    motionenergy = applyFilters(stim, f1, f2, g1, g2);
+    [motionenergy, velocity] = applyFilters(stim, f1, f2, g1, g2);
     me(theta) = sum(sum(sum(motionenergy))); % sum over space and time
 end
 

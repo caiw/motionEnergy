@@ -20,7 +20,7 @@
 % Anne Urai and Klaus Wimmer, 2016
 % anne.urai@gmail.com / kwimmer@clinic.ub.es
 
-function energy = applyFilters(stim, f1, f2, g1, g2)
+function [energy, velocity] = applyFilters(stim, f1, f2, g1, g2)
 % apply filtering according to Adelson & Bergen figure 18b
 % composite filters!
 tic;
@@ -54,14 +54,14 @@ B2      = reshape(B2_, stimsize, stimsize, []);
 
 % Adelson and Bergen, fig 18b
 % opponentenergy    = 4*(A1 .* B2 - A2 .* B1); % this is the opponent energy
-% energy_left       = (A1-B2).^2 + (A2+B1).^2;
-% energy_right      = (A1+B2).^2 + (A2-B1).^2;
-% energy_opponent   = energy_right - energy_left; % opponent energy
+energy_left         = (A1-B2).^2 + (A2+B1).^2;
+energy_right        = (A1+B2).^2 + (A2-B1).^2;
+energy_opponent     = energy_right - energy_left; % opponent energy
 
 energy              = A1 .* B2 - A2 .* B1;
 
-% energy_static     = A1.^2 + A2.^2 + B1.^2 + B2.^2;
-% velocity          = energy_opponent ./ energy_static;
+energy_static       = A1.^2 + A2.^2 + B1.^2 + B2.^2;
+velocity            = energy_opponent ./ energy_static;
 % assert(~any(isnan(velocity)));
 toc;
 
