@@ -39,7 +39,7 @@ f2      = @(x,y) (cosd(alpha(x)).^4 .* sind(4*alpha(x)) .* exp(-(y.^2)/(2*cfg.si
 cfg.x_n     = 2*floor(floor((cfg.x_range(2) - cfg.x_range(1)) * cfg.ppd) / 2) + 1;  
 
 % make spatial grid
-space   = linspace(cfg.x_range(1), cfg.x_range(2),cfg. x_n);
+space   = linspace(cfg.x_range(1), cfg.x_range(2), cfg.x_n);
 [x, y]  = meshgrid(space, space);
 
 % get the kernels

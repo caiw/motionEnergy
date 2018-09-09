@@ -28,6 +28,7 @@ motionenergy = nan(numel(spds), numel(sigmas));
 
 for sigma = sigmas,
     for spd = spds,
+        disp(['sigma ' num2str(sigma) ', spd ' num2str(spd)]);
         
         % ======================================================= %
         % SIMULATE DATA
@@ -51,7 +52,7 @@ for sigma = sigmas,
         stimMovieA      = coord2stim(display, coordA, -dots.direction);
         
         % ======================================================= %
-        % MAKE APPROPIATE FILTERS, APPLY
+        % MAKE APPROPIATE FILTERS
         % ======================================================= %
         
         cfg.frameRate   = display.frameRate;
@@ -61,14 +62,14 @@ for sigma = sigmas,
         cfg.ppd         = display.ppd;
         
         % ======================================================= %
-        % COMPUTE AND SAVE A BUNCH OF THINGS
+        % APPLY FILTERS, AND COMPUTE AND SAVE A BUNCH OF THINGS
         % ======================================================= %
         
         % 1. stimulus spectogram, should turn with increasing speed
         % spectogram(squeeze(sum(stimMovieA,2))', cfg);
         % title(sprintf('%2.2f deg/s', spd / dots.nvar * cfg.frameRate / cfg.ppd));
         
-        % uning curve: output of ME filter for each speed
+        % tuning curve: output of ME filter for each speed
         [f1, f2] = makeSpatialFilters(cfg);
         [g1, g2] = makeTemporalFilters(cfg);
         
