@@ -1,16 +1,26 @@
-sigmas = 0.05:0.05:3;
+sigmas = 0.05:0.05:2.5;
 
-stim_frame_lab = rgb2lab(imread('trial_002/frame01.png'));
+stim_frame_lab = rgb2lab(imread('trial_001/frame01.png'));
 % Extract luminocity only
-stim = stim_frame_lab(:, :, 3);
+stim = stim_frame_lab(:, :, 1);
 for i = 2:9
-   stim_frame_lab = rgb2lab(imread(['trial_002/frame0' num2str(i) '.png']));
-   stim = cat(3, stim, stim_frame_lab(:,:,3));
+   stim_frame_lab = rgb2lab(imread(['trial_001/frame0' num2str(i) '.png']));
+   stim = cat(3, stim, stim_frame_lab(:,:,1));
 end
 for i = 10:60
-   stim_frame_lab = rgb2lab(imread(['trial_002/frame' num2str(i) '.png']));
-   stim = cat(3, stim, stim_frame_lab(:,:,3));
+   stim_frame_lab = rgb2lab(imread(['trial_001/frame' num2str(i) '.png']));
+   stim = cat(3, stim, stim_frame_lab(:,:,1));
 end
+
+% stim = rgb2gray(imread('trial_001/frame01.png'));
+% for i = 2:9
+%    stim_frame_gray = rgb2gray(imread(['trial_001/frame0' num2str(i) '.png']));
+%    stim = cat(3, stim, stim_frame_gray);
+% end
+% for i = 10:60
+%    stim_frame_gray = rgb2gray(imread(['trial_001/frame' num2str(i) '.png']));
+%    stim = cat(3, stim, stim_frame_gray);
+% end
 
 % Need to extract the central square of the image
 [stim_height, stim_width, n_frames] = size(stim);
@@ -49,8 +59,8 @@ for i = 1:numel(sigmas)
     [g1, g2] = makeTemporalFilters(cfg);
     
     disp(['Applying filters with sigma ' num2str(sigma)]);
-    energy, v = applyFilters(stim, f1, f2, g1, g2);
+    [energy, v] = applyFilters(stim, f1, f2, g1, g2);
     motion_energy(i, :) = squeeze(sum(sum(energy)));
-    velocity(i, :) = squeeze(sum(sum(energy)));
+    velocity(i, :) = squeeze(sum(sum(v)));
 end
 
